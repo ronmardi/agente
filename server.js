@@ -2,6 +2,7 @@ import express from 'express';
 import rateLimit from 'express-rate-limit';
 import { OAuth2Client } from 'google-auth-library';
 import { procesarMensaje } from './agente.js';
+import path from 'path';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -9,7 +10,8 @@ const PORT = process.env.PORT || 3000;
 // Aquí leemos la lista de dominios desde el .env
 const ALLOWED_DOMAINS = process.env.ALLOWED_DOMAINS ? process.env.ALLOWED_DOMAINS.split(',') : [];
 
-app.use(express.static('public'));
+// Configuración absoluta para la carpeta public en Vercel
+app.use(express.static(path.join(process.cwd(), 'public')));
 app.use(express.json({ limit: '10kb' })); 
 
 const authClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
