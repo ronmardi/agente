@@ -5,6 +5,14 @@ import { procesarMensaje } from './agente.js';
 import path from 'path';
 
 const app = express();
+
+// Permitir comunicación con el popup de Google Auth
+app.use((req, res, next) => {
+    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
+    res.setHeader('Cross-Origin-Embedder-Policy', 'unsafe-none');
+    next();
+});
+
 const PORT = process.env.PORT || 3000;
 
 // Aquí leemos la lista de dominios desde el .env
