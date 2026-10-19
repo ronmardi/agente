@@ -81,4 +81,10 @@ app.post('/chat', verificarAuth, chatLimiter, async (req, res) => {
     }
 });
 
-app.listen(PORT, () => console.log(`Servidor en http://localhost:${PORT}`));
+// Solo escuchar el puerto si se ejecuta de forma local (no en Vercel)
+if (!process.env.VERCEL) {
+    app.listen(PORT, () => console.log(`Servidor en http://localhost:${PORT}`));
+}
+
+// Exportar app para que Vercel pueda ejecutarlo como función serverless
+export default app;
