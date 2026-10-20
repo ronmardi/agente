@@ -21,7 +21,8 @@ REGLAS:
      b) Sucursal (debe coincidir con una sucursal, ej. Providencia, Santiago, Concepción, Ambulatoria, etc.).
      c) Número de Anydesk para conexión remota.
    - Muestra un resumen y descripción de lo intentado, y PIDE CONFIRMACIÓN EXPLÍCITA al usuario antes de usar crear_ticket.
-7. Responde de forma amable, breve, profesional y siempre en español.`;
+7. Cuando utilices la herramienta crear_ticket, SIEMPRE debes incluir la URL exacta que te devuelve la función en tu respuesta final al usuario. Imprime la URL de forma cruda (comenzando con https://) para que el usuario pueda hacer clic y darle seguimiento.
+8. Responde de forma amable, breve, profesional y siempre en español.`;
 
 const tools = [
     {
