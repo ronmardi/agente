@@ -88,6 +88,57 @@
     .lado { padding: 36px 24px; } .lado h1 { max-width: none; }
     .barra .quien { display: none; }
   }
+
+  /* =========================================
+     MODO OSCURO AUTOMÁTICO (LIQUID GLASS)
+     ========================================= */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fondo: #090e17;
+      --ink: #f1f5f9;
+      --blanco: rgba(30, 41, 59, 0.5);
+      --linea: rgba(255, 255, 255, 0.08);
+      --suave: #94a3b8;
+      --azul: #3b82f6;
+      --azul-osc: #60a5fa;
+      --azul-claro: rgba(59, 130, 246, 0.15);
+    }
+    
+    /* Efecto de Cristal Líquido (Glassmorphism 3D) */
+    .tarjeta, .bot .burbuja, .temas button, #acciones button, textarea, #miniatura {
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Barra superior y pie flotantes */
+    .barra {
+      background: rgba(9, 14, 23, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--linea);
+    }
+    
+    form {
+      background: rgba(9, 14, 23, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    
+    /* Botón del usuario brillante */
+    .yo .burbuja {
+      background: var(--azul);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.25);
+    }
+    
+    #btnArchivo { color: var(--suave) !important; }
+    #btnArchivo:hover { color: var(--azul) !important; border-color: var(--azul) !important; }
+    
+    /* Ajuste de la pantalla de Login */
+    .lado { background: radial-gradient(circle at top left, #111827, #090e17); border-right: 1px solid var(--linea); }
+  }
 </style>
 </head>
 <body>
