@@ -12,7 +12,7 @@
   :root { --azul:#0052cc; --azul-osc:#0747a6; --azul-claro:#deebff; --ink:#172b4d; --suave:#5e6c84; --fondo:#f4f5f7; --linea:#dfe1e6; --blanco:#fff; --ok:#00875a; }
   * { box-sizing: border-box; }
   html, body { height: 100%; margin: 0; }
-  body { font: 16px/1.55 "Public Sans", system-ui, sans-serif; background: var(--fondo); color: var(--ink); }
+  body { font: 16px/1.55 "Public Sans", system-ui, sans-serif; background: var(--fondo); color: var(--ink); transition: background 0.3s, color 0.3s; }
   [hidden] { display: none !important; }
   :focus-visible { outline: 3px solid var(--azul); outline-offset: 2px; }
   button { font: inherit; cursor: pointer; }
@@ -20,14 +20,14 @@
 
   /* Acceso */
   #login { min-height: 100%; display: grid; grid-template-columns: 1.1fr 1fr; }
-  .lado { background: var(--azul); color: var(--blanco); padding: 8vh 7vw; display: flex; flex-direction: column; justify-content: center; }
+  .lado { background: var(--azul); color: var(--blanco); padding: 8vh 7vw; display: flex; flex-direction: column; justify-content: center; transition: 0.3s; }
   .lado h1 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); line-height: 1.15; margin: 0 0 16px; max-width: 16ch; }
   .lado p { margin: 0 0 28px; max-width: 44ch; color: #deebff; }
   .lado ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
   .lado li { display: flex; gap: 12px; align-items: flex-start; }
   .lado li b { flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--blanco); color: var(--azul); display: grid; place-items: center; font-size: .85rem; }
   .acceso { display: grid; place-items: center; padding: 32px; }
-  .tarjeta { background: var(--blanco); border-radius: 14px; padding: 36px 32px; width: 100%; max-width: 380px; text-align: center; box-shadow: 0 8px 24px rgba(9,30,66,.12); }
+  .tarjeta { background: var(--blanco); border-radius: 14px; padding: 36px 32px; width: 100%; max-width: 380px; text-align: center; box-shadow: 0 8px 24px rgba(9,30,66,.12); transition: 0.3s; }
   .tarjeta h2 { margin: 0 0 8px; font-size: 1.3rem; }
   .tarjeta p { margin: 0 0 24px; color: var(--suave); font-size: .95rem; }
   .tarjeta small { display: block; margin-top: 20px; color: var(--suave); }
@@ -35,19 +35,19 @@
 
   /* Chat */
   #app { height: 100%; display: flex; flex-direction: column; }
-  .barra { background: var(--azul); color: var(--blanco); padding: 12px 20px; display: flex; align-items: center; gap: 12px; }
+  .barra { background: var(--azul); color: var(--blanco); padding: 12px 20px; display: flex; align-items: center; gap: 12px; transition: 0.3s; }
   .barra .marca { font-weight: 700; flex: 1; }
   .barra .marca span { font-weight: 400; opacity: .85; }
   .barra .quien { font-size: .88rem; opacity: .9; max-width: 28ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .barra button { background: transparent; color: var(--blanco); border: 1px solid rgba(255,255,255,.55); border-radius: 8px; padding: 6px 12px; font-size: .88rem; }
-  .barra button:hover { background: var(--azul-osc); }
+  .barra button { background: transparent; color: var(--blanco); border: 1px solid rgba(255,255,255,.55); border-radius: 8px; padding: 6px 12px; font-size: .88rem; transition: 0.2s; }
+  .barra button:hover { background: rgba(0,0,0,0.15); }
   #log { flex: 1; overflow-y: auto; padding: 24px 20px; }
   .col { max-width: 760px; margin: 0 auto; }
 
   .bienvenida h2 { font-size: 1.4rem; margin: 8px 0 6px; }
   .bienvenida p { color: var(--suave); margin: 0 0 20px; }
   .temas { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
-  .temas button { text-align: left; background: var(--blanco); border: 1px solid var(--linea); border-radius: 10px; padding: 12px 14px; color: var(--ink); }
+  .temas button { text-align: left; background: var(--blanco); border: 1px solid var(--linea); border-radius: 10px; padding: 12px 14px; color: var(--ink); transition: 0.2s; }
   .temas button:hover { border-color: var(--azul); background: var(--azul-claro); }
   .temas strong { display: block; font-size: .95rem; }
   .temas span { font-size: .85rem; color: var(--suave); }
@@ -62,7 +62,7 @@
   .burbuja ol, .burbuja ul { margin: 0 0 8px; padding-left: 22px; }
   .burbuja li { margin-bottom: 4px; }
   .burbuja a { color: var(--azul); font-weight: 600; }
-  .error .burbuja { background: #ffebe6; border-color: #ffbdad; }
+  .error .burbuja { background: #ffebe6; border-color: #ffbdad; color: #172b4d; }
 
   .dots { display: inline-flex; gap: 4px; padding: 6px 0; }
   .dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--suave); animation: salto 1s infinite; }
@@ -71,14 +71,14 @@
   @media (prefers-reduced-motion: reduce) { .dots i { animation: none; opacity: .6; } }
 
   #acciones { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px 42px; }
-  #acciones button { border-radius: 999px; padding: 7px 16px; font-size: .9rem; border: 1px solid var(--linea); background: var(--blanco); color: var(--ink); }
+  #acciones button { border-radius: 999px; padding: 7px 16px; font-size: .9rem; border: 1px solid var(--linea); background: var(--blanco); color: var(--ink); transition: 0.2s; }
   #acciones .si:hover { border-color: var(--ok); color: var(--ok); }
   #acciones .no { border-color: var(--azul); color: var(--azul); font-weight: 600; }
   #acciones .no:hover { background: var(--azul-claro); }
 
-  form { background: var(--blanco); border-top: 1px solid var(--linea); padding: 12px 20px 16px; }
+  form { background: var(--blanco); border-top: 1px solid var(--linea); padding: 12px 20px 16px; transition: 0.3s; }
   .caja { max-width: 760px; margin: 0 auto; display: flex; gap: 10px; align-items: flex-end; position: relative; }
-  textarea { flex: 1; font: inherit; resize: none; max-height: 140px; padding: 11px 14px; border: 1px solid var(--linea); border-radius: 10px; color: var(--ink); background: var(--blanco); }
+  textarea { flex: 1; font: inherit; resize: none; max-height: 140px; padding: 11px 14px; border: 1px solid var(--linea); border-radius: 10px; color: var(--ink); background: var(--blanco); transition: 0.3s; }
   #enviar { background: var(--azul); color: var(--blanco); border: 0; border-radius: 10px; padding: 11px 20px; font-weight: 600; }
   #enviar:hover:not(:disabled) { background: var(--azul-osc); }
   .nota { max-width: 760px; margin: 6px auto 0; font-size: .8rem; color: var(--suave); }
@@ -89,65 +89,55 @@
     .barra .quien { display: none; }
   }
 
+  /* Switch Theme Button */
+  .theme-switch { position: fixed; bottom: 20px; right: 20px; width: 46px; height: 46px; border-radius: 50%; background: var(--blanco); border: 1px solid var(--linea); font-size: 1.3rem; display: grid; place-items: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 1000; transition: 0.3s; }
+  .theme-switch:hover { transform: scale(1.05); }
+
   /* =========================================
-     MODO OSCURO AUTOMÁTICO (LIQUID GLASS)
+     MODO OSCURO MANUAL (LIQUID GLASS)
      ========================================= */
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --fondo: #090e17;
-      --ink: #f1f5f9;
-      --blanco: rgba(30, 41, 59, 0.5);
-      --linea: rgba(255, 255, 255, 0.08);
-      --suave: #94a3b8;
-      --azul: #3b82f6;
-      --azul-osc: #60a5fa;
-      --azul-claro: rgba(59, 130, 246, 0.15);
-    }
-    
-    /* Efecto de Cristal Líquido (Glassmorphism 3D) */
-    .tarjeta, .bot .burbuja, .temas button, #acciones button, textarea, #miniatura {
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    }
-    
-    /* Barra superior y pie flotantes */
-    .barra {
-      background: rgba(9, 14, 23, 0.75);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--linea);
-    }
-    
-    form {
-      background: rgba(9, 14, 23, 0.75);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-    
-    /* Botón del usuario brillante */
-    .yo .burbuja {
-      background: var(--azul);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.25);
-    }
-    
-    #btnArchivo { color: var(--suave) !important; }
-    #btnArchivo:hover { color: var(--azul) !important; border-color: var(--azul) !important; }
-    
-    /* Ajuste de la pantalla de Login */
-    .lado { 
-      background: radial-gradient(circle at top left, #111827, #090e17); 
-      border-right: 1px solid var(--linea); 
-    }
-    .lado h1, .lado ul span { color: #f8fafc; }
-    .lado p { color: #94a3b8; }
-    .lado li b { background: rgba(255, 255, 255, 0.1); color: #60a5fa; border: 1px solid rgba(255, 255, 255, 0.1); }
+  body.dark-theme {
+    --fondo: #090e17;
+    --ink: #f1f5f9;
+    --blanco: rgba(30, 41, 59, 0.5);
+    --linea: rgba(255, 255, 255, 0.08);
+    --suave: #94a3b8;
+    --azul: #3b82f6;
+    --azul-osc: #60a5fa;
+    --azul-claro: rgba(59, 130, 246, 0.15);
   }
+  
+  body.dark-theme .tarjeta, body.dark-theme .bot .burbuja, body.dark-theme .temas button, body.dark-theme #acciones button, body.dark-theme textarea, body.dark-theme #miniatura {
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Corrección de contraste en la barra superior */
+  body.dark-theme .barra {
+    background: rgba(9, 14, 23, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--linea);
+    color: #f8fafc; /* Texto blanco forzado */
+  }
+  body.dark-theme .barra button { border-color: rgba(255,255,255,0.25); color: #f8fafc; }
+  body.dark-theme .barra button:hover { background: rgba(255,255,255,0.1); }
+  
+  body.dark-theme form { background: rgba(9, 14, 23, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  body.dark-theme .yo .burbuja { background: var(--azul); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 4px 20px rgba(59, 130, 246, 0.25); color: #fff; }
+  body.dark-theme #btnArchivo { color: var(--suave) !important; }
+  body.dark-theme #btnArchivo:hover { color: var(--azul) !important; border-color: var(--azul) !important; }
+  body.dark-theme .theme-switch { background: rgba(30, 41, 59, 0.8); border-color: rgba(255,255,255,0.1); color: #f8fafc; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  
+  /* Corrección de Login */
+  body.dark-theme .lado { background: radial-gradient(circle at top left, #111827, #090e17); border-right: 1px solid var(--linea); }
+  body.dark-theme .lado h1, body.dark-theme .lado ul span { color: #f8fafc; }
+  body.dark-theme .lado p { color: #94a3b8; }
+  body.dark-theme .lado li b { background: rgba(255, 255, 255, 0.1); color: #60a5fa; border: 1px solid rgba(255, 255, 255, 0.1); }
 </style>
 </head>
 <body>
+
+<!-- Botón Flotante Tema -->
+<button id="themeToggle" class="theme-switch" title="Cambiar tema">🌙</button>
 
 <section id="login">
   <div class="lado">
@@ -205,6 +195,26 @@ const TEMAS = [
 let token = null, historial = [], ocupado = false;
 let selectedImage = null;
 const $ = (id) => document.getElementById(id);
+
+// Lógica de Cambio de Tema
+const btnTema = $("themeToggle");
+const currentTheme = localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+
+if (currentTheme === "dark") {
+  document.body.classList.add("dark-theme");
+  btnTema.textContent = "☀️";
+}
+
+btnTema.onclick = () => {
+  document.body.classList.toggle("dark-theme");
+  if (document.body.classList.contains("dark-theme")) {
+    localStorage.setItem("theme", "dark");
+    btnTema.textContent = "☀️";
+  } else {
+    localStorage.setItem("theme", "light");
+    btnTema.textContent = "🌙";
+  }
+};
 
 $("btnArchivo").onclick = () => $("archivo").click();
 $("btnArchivo").onmouseover = () => $("btnArchivo").style.borderColor = "var(--azul)";
