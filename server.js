@@ -20,7 +20,7 @@ const ALLOWED_DOMAINS = process.env.ALLOWED_DOMAINS ? process.env.ALLOWED_DOMAIN
 
 // Configuración absoluta para la carpeta public en Vercel
 app.use(express.static(path.join(process.cwd(), 'public')));
-app.use(express.json({ limit: '10kb' })); 
+app.use(express.json({ limit: '10mb' })); 
 
 const authClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -64,7 +64,7 @@ app.get('/config', (req, res) => {
 });
 
 app.post('/chat', verificarAuth, chatLimiter, async (req, res) => {
-    const { mensajes } = req.body;
+    const { mensajes, image } = req.body;
     
     if (!mensajes || !Array.isArray(mensajes) || mensajes.length === 0) {
         return res.status(400).json({ error: "Formato de mensaje inválido." });
@@ -77,7 +77,7 @@ app.post('/chat', verificarAuth, chatLimiter, async (req, res) => {
     }
 
     let historial = chatHistories.get(req.user.email) || [];
-    historial.push({ role: "user", content: textoUsuario });
+    historial.push({ role: "user", content: textoUsuario, image: image || null });
 
     if (historial.length > 20) historial = historial.slice(-20);
 
