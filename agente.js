@@ -61,20 +61,16 @@ export async function procesarMensaje(historial, usuario) {
     const geminiHistory = [];
     const lastMsg = historial.pop(); 
     
-    // Mapeamos el historial para incluir imágenes si existen
+    // Mapeamos el historial para reconstruir la conversación
     for (const item of historial) {
-        if (item.parts) {
-            geminiHistory.push(item);
-        } else {
-            let parts = [{ text: item.content }];
-            if (item.image) {
-                parts.unshift({ inlineData: { data: item.image.data, mimeType: item.image.mimeType } });
-            }
-            geminiHistory.push({
-                role: item.role === 'assistant' ? 'model' : 'user',
-                parts: parts
-            });
+        let parts = [{ text: item.content }];
+        if (item.image) {
+            parts.unshift({ inlineData: { data: item.image.data, mimeType: item.image.mimeType } });
         }
+        geminiHistory.push({
+            role: item.role === 'assistant' ? 'model' : 'user',
+            parts: parts
+        });
     }
 
     try {
@@ -101,7 +97,7 @@ export async function procesarMensaje(historial, usuario) {
             const functionCalls = result.response.functionCalls();
             
             if (functionCalls && functionCalls.length > 0) {
-                const functionResponses = [];
+                const toolResultStrs = [];
 
                 // Atender todas las llamadas de funciones solicitadas por el modelo en este turno
                 for (const call of functionCalls) {
@@ -115,35 +111,22 @@ export async function procesarMensaje(historial, usuario) {
                             toolResultStr = await crearTicket(call.args, usuario);
                         }
                         
-                        functionResponses.push({
-                            functionResponse: {
-                                name: call.name,
-                                response: { resultado: toolResultStr }
-                            }
-                        });
+                        toolResultStrs.push(`Resultado de ${call.name}:\n${toolResultStr}`);
                     } catch (toolError) {
                         console.error(`[Error de Herramienta] Fallo al ejecutar ${call.name}:`, toolError);
-                        functionResponses.push({
-                            functionResponse: {
-                                name: call.name,
-                                response: { error: "Ocurrió un error interno al ejecutar la herramienta. Por favor, informa al usuario que hubo un fallo temporal en este proceso." }
-                            }
-                        });
+                        toolResultStrs.push(`Resultado de ${call.name}:\nError: Ocurrió un error interno al ejecutar la herramienta.`);
                     }
                 }
                 
-                // Enviar la respuesta de las funciones estructuradas correctamente a Gemini
-                result = await chat.sendMessage(functionResponses);
+                // Enviar la respuesta de las funciones como texto estructurado bajo el rol de usuario
+                result = await chat.sendMessage(`[Sistema interno] Ejecución de herramientas completada:\n\n${toolResultStrs.join('\n\n')}`);
                 iteracion++;
             } else {
-                const assistantMessage = result.response.text();
-                const nuevoHistorial = await chat.getHistory();
-                return { respuesta: assistantMessage, nuevoHistorial };
+                return { respuesta: result.response.text() };
             }
         }
         
-        const finalHistory = await chat.getHistory();
-        return { respuesta: "He alcanzado el límite de operaciones internas. Por favor, crea el ticket manualmente en el portal.", nuevoHistorial: finalHistory };
+        return { respuesta: "He alcanzado el límite de operaciones internas. Por favor, crea el ticket manualmente en el portal." };
     } catch (error) {
         console.error("[ERROR CRÍTICO DE GEMINI]:", error);
         throw error;
